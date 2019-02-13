@@ -19,9 +19,10 @@ export default class VenderService {
     _vendingmachine.balance += .25
   }
   buyItem(event) {
-    debugger
-    if (_vendingmachine.balance > _vendingmachine.snacks[event.target.id].price) {
-      console.log('got it')
+    if (_vendingmachine.balance >= _vendingmachine.snacks[event.target.dataset.id].snack.price) {
+      _vendingmachine.balance -= _vendingmachine.snacks[event.target.dataset.id].snack.price
+      _vendingmachine.snacks[event.target.dataset.id].quantity--
+      return true
     }
   }
 }

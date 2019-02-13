@@ -11,13 +11,14 @@ function draw() {
   for (let snack in snacks) {
     template += `
      <div class="col-4">
-      <img class="img-fluid" src=${snacks[snack].image} alt="">
-      <button id="${snacks[snack].name}"
+      <img class="img-fluid" src=${snacks[snack].snack.image} alt="">
+      <button id="${snacks[snack].snack.name}"
+      data-id="${snack}"
       class = "btn btn-dark text-light"
       type = "button" onclick="app.controllers.venderControler.buyItem(event)">${
-        snacks[snack].name
+        snacks[snack].snack.name
       }</button>
-      <p>${snacks[snack].price.toFixed(2)}</p> 
+      <p>${snacks[snack].snack.price.toFixed(2)}</p> 
     </div>`
   }
 
@@ -29,10 +30,26 @@ function draw() {
       </div>
     </div>`
   document.getElementById('app').innerHTML = template
+
+
+
 }
 
+function draw2(event) {
+  let template2 = ''
+  template2 += `
+  <div class="card">
+  <div class="card-body">
+    <img src=${venderService.Snacks[event.target.dataset.id].snack.image} alt="" class="card-img">
+    <p class="card-text">Please Take Your Item</p>
+    <button class="btn btn-dark text-white"
+    type="button"
+    onclick="app.controllers.venderControler.redraw()"> OK </button>
+  </div>
+</div>`
+  document.getElementById('app').innerHTML = template2
 
-
+}
 
 
 
@@ -47,6 +64,13 @@ export default class venderControler {
     draw()
   }
   buyItem(event) {
-    venderService.buyItem(event)
+    let vend = venderService.buyItem(event)
+    draw()
+    if (vend) {
+      draw2(event)
+    }
+  }
+  redraw() {
+    draw()
   }
 }
