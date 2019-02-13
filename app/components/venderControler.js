@@ -11,7 +11,7 @@ function draw() {
   let template = ''
   for (let snack in snacks) {
     template += `
-     <div class="col-4">
+     <div class="col-4 d-flex flex-column align-items-center">
       <img class="img-fluid" src=${snacks[snack].snack.image} alt="">
       <button id="${snacks[snack].snack.name}"
       data-id="${snack}"
@@ -25,7 +25,7 @@ function draw() {
 
   template += `
     <div class="row w-100">
-      <div class="col d-flex flex-column align-items-center">
+      <div id="optMessage"class="col d-flex flex-column align-items-center">
       <p>Balance: <span>${vendorService.Balance.toFixed(2)}</span></p>
       <button class="btn btn-dark text-white" type="button" onclick="app.controllers.venderControler.addQuarter()"> Deposit 25 cents </button>
       </div>
@@ -38,7 +38,7 @@ function draw() {
 function draw2(event) {
   let template2 = ''
   template2 += `
-  <div class="col d-flex justify-content-center"
+  <div class="col-4 offset-4 d-flex justify-content-center"
   <div class="card">
   <div class="card-body">
     <img src=${vendorService.Snacks[event.target.dataset.id].snack.image} alt="" class="card-img">
@@ -69,6 +69,8 @@ export default class vendorControler {
     draw()
     if (vend) {
       draw2(event)
+    } else {
+      document.getElementById('optMessage').lastElementChild.insertAdjacentHTML('afterbegin', '<p> You Need More Money</p>')
     }
   }
   redraw() {
