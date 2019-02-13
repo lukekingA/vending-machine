@@ -5,7 +5,7 @@ let _vendingmachine = new VendingMachine()
 
 
 //public
-export default class VenderService {
+export default class VendorService {
   constructor() {
     console.log('building the service')
   }

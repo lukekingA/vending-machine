@@ -1,12 +1,13 @@
-import VenderService from "./venderService.js";
+import VendorService from "./vendorService.js";
 //private
 
 
-let venderService = new VenderService()
+let vendorService = new VendorService()
 
 function draw() {
-  let snacks = venderService.Snacks
-  let balance = venderService.Balance
+
+  let snacks = vendorService.Snacks
+  let balance = vendorService.Balance
   let template = ''
   for (let snack in snacks) {
     template += `
@@ -17,7 +18,7 @@ function draw() {
       class = "btn btn-dark text-light"
       type = "button" onclick="app.controllers.venderControler.buyItem(event)">${
         snacks[snack].snack.name
-      }</button>
+        }</button>
       <p>${snacks[snack].snack.price.toFixed(2)}</p> 
     </div>`
   }
@@ -25,12 +26,11 @@ function draw() {
   template += `
     <div class="row w-100">
       <div class="col d-flex flex-column align-items-center">
-      <p>Balance: <span>${venderService.Balance.toFixed(2)}</span></p>
+      <p>Balance: <span>${vendorService.Balance.toFixed(2)}</span></p>
       <button class="btn btn-dark text-white" type="button" onclick="app.controllers.venderControler.addQuarter()"> Deposit 25 cents </button>
       </div>
     </div>`
   document.getElementById('app').innerHTML = template
-
 
 
 }
@@ -38,33 +38,34 @@ function draw() {
 function draw2(event) {
   let template2 = ''
   template2 += `
+  <div class="col d-flex justify-content-center"
   <div class="card">
   <div class="card-body">
-    <img src=${venderService.Snacks[event.target.dataset.id].snack.image} alt="" class="card-img">
+    <img src=${vendorService.Snacks[event.target.dataset.id].snack.image} alt="" class="card-img">
     <p class="card-text">Please Take Your Item</p>
     <button class="btn btn-dark text-white"
     type="button"
     onclick="app.controllers.venderControler.redraw()"> OK </button>
   </div>
+</div>
 </div>`
   document.getElementById('app').innerHTML = template2
-
 }
 
 
 
 //public
-export default class venderControler {
+export default class vendorControler {
   constructor() {
     console.log('building the controler')
     draw()
   }
   addQuarter() {
-    venderService.addQuarter()
+    vendorService.addQuarter()
     draw()
   }
   buyItem(event) {
-    let vend = venderService.buyItem(event)
+    let vend = vendorService.buyItem(event)
     draw()
     if (vend) {
       draw2(event)
