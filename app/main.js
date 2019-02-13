@@ -1,4 +1,4 @@
-import venderControler from "./components/venderControler.js";
+import venderControler from "./components/vendorControler.js";
 
 class App {
   constructor() {
